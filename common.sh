@@ -15,7 +15,7 @@ mkdir -p $LOGS_FOLDER
 echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 
 app_setup(){
-    id roboshop $>>$LOG_FILE #idempotency
+    id roboshop &>>$LOG_FILE #idempotency
     if [ $? -ne 0 ]
     then
         useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
@@ -46,7 +46,7 @@ nodejs_setup(){
     dnf install nodejs -y &>>$LOG_FILE
     VALIDATE $? "Installing nodejs:20"
 
-    npm install &>>$LOG_FILE
+    npm install &>>$LOG_FILE &>>$LOG_FILE
     VALIDATE $? "Installing dependencies"
 }
 
