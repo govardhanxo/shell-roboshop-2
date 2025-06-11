@@ -16,7 +16,7 @@ echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 
 app_setup(){
     id roboshop $>>$LOG_FILE #idempotency
-    if [ $? -ne o ]
+    if [ $? -ne 0 ]
     then
         useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
         VALIDATE $? "Creating roboshop system user"
